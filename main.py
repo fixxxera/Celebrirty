@@ -76,47 +76,7 @@ def calculate_days(date, duration):
 
 
 def match_by_meta(param):
-    bermuda = ['Kings Wharf, Bermuda']
-    # alaska = ['Seward, Alaska', 'Hubbard Glacier, Alaska', 'Juneau, Alaska', 'Skagway, Alaska',
-    #           'Icy Strait Point, Alaska', 'Ketchikan, Alaska', 'Inside Passage, Alaska', 'Vancouver, British Columbia',
-    #           'Seattle, Washington', 'Astoria, Oregon', 'Sitka, Alaska', 'Tracy Arm Fjord, Alaska',
-    #           'Victoria, British Columbia', 'Dutch Harbor, Alaska', 'Nanaimo, British Columbia']
-    # trans_pacific = ['Colon, Panama', 'Panama Canal, Panama']
-    # galapagos = ['Baltra, Galapagos', 'Daphne Island, Galapagos', 'Gardner Bay (Española), Galapagos',
-    #              'Punta Suarez, Galapagos', 'Cormorant Point, Galapagos', 'Post Office, Galapagos',
-    #              'Punta Espinoza, Galapagos', 'Dragon Hill, Galapagos', 'Puerto Ayora, Galapagos',
-    #              'Puerto Egas, Galapagos', 'Rabida, Galapagos', 'Elizabeth Bay, Galapagos', 'Bartolome, Galapagos',
-    #              'North Seymour, Galapagos', 'Santa Fe Island (Galapagos)', 'Mosquera Islet (Galapagos)',
-    #              'Punta Moreno, Isabela', 'Urvina Bay, Isabela', 'Punta Vicente Roca, Isabela', 'Caleta Tagus, Isabela',
-    #              'South Plaza, Santa Cruz', 'Sullivan Bay, Santiago', 'Las Bachas, (Santa Cruz)',
-    #              'Puerto Baquerizo Moreno, San Cristobal', 'Punta Pitt (San Cristobal)', 'Cerro Brujo, San Cristobal',
-    #              'Puerto Villamil, Isabella', 'Wall Of Tears (Isabella)', 'Espumilla Beach, Santiago',
-    #              'Black Turtle Cove', 'El Barranco (Genovesa)', 'Chinese Hat Islet', 'Kicker Rock (San Cristobal)',
-    #              'Los Lobos (San Cristobal)']
-    # samerica = ['Valparaiso, Chile', 'Arica, Chile', 'Lima, Peru', 'Manta, Ecuador', 'Puerto Montt, Chile',
-    #             'Chilean Fjords, South America', 'Strait Of Magellan, South America', 'Punta Arenas, Chile',
-    #             'Ushuaia, Argentina', 'Cape Horn, Chile', 'Puerto Madryn, Argentina', 'Punta Del Este, Uruguay',
-    #             'Montevideo, Uruguay', 'Buenos Aires, Argentina', 'Pisco, San Martin, Peru',
-    #             'Sao Paulo (Santos), Brazil', 'Ilhabela, Brazil', 'Buzios, Brazil', 'Rio De Janeiro, Brazil',
-    #             'Gerlache Straight, South America', 'Port Stanley, Falkland Islands', 'Puerto Quetzal, Guatemala',
-    #             'Puntarenas, Costa Rica']
-    # mexico = ['Ensenada, Mexico', 'Cabo San Lucas, Mexico', 'Puerto Vallarta, Mexico']
-    # hawaii = ['Kailua Kona, Hawaii', 'Hilo, Hawaii', 'Lahaina (Maui), Hawaii']
-    # china = ['Hong Kong, China', 'Shanghai (Baoshan), China', 'Tianjin, China']
-    # exotics = ['Abu Dhabi, United Arab Emirates', 'Dubai, United Arab Emirates', 'Muscat, Oman', 'Khasab, Oman',
-    #            'Aqaba, Jordan', 'Suez Canal (Passage)', 'Nha Trang, Vietnam', 'Hue / Danang (Chan May), Vietnam',
-    #            'Manila, Philippines', 'Taipei (Keelung), Taiwan', 'Busan, South Korea', 'Tokyo (Yokohama), Japan',
-    #            'Hakodate, Japan', 'Sapporo (Muroran), Japan', 'New Mangalore, India', 'Goa (Mormugao), India',
-    #            'Bombay (Mumbai), India', 'Otaru, Japan', 'Cochin, India', 'Colombo, Sri Lanka',
-    #            'Hanoi (Halong Bay), Vietnam', 'Aomori, Japan', 'Nagasaki, Japan', 'Jeju Island, South Korea',
-    #            'Seoul (Incheon), South Korea', 'Mt Fuji (Shimizu), Japan', 'Kobe, Japan', 'Kochi, Japan',
-    #            'Kaohsiung, Taiwan', 'Hualien, Taiwan', 'Boracay, Philippines', 'Kota Kinabalu, Malaysia',
-    #            'Okinawa, Japan', 'Hiroshima, Japan', 'Kagoshima, Japan']
-    # initd = ['International Date Line', 'Lautoka, Fiji']
-    # austr = ['Dunedin, New Zealand', 'Dusky Sound, New Zealand', 'Doubtful Sound, New Zealand',
-    #          'Milford Sound, New Zealand', 'Newcastle, Australia', 'Cairns, Australia', 'Isle Of Pines, New Caledonia',
-    #          'Mystery Island, Vanuatu', 'Lifou, Loyalty Island', 'Lifou, Loyalty Island', 'Noumea, New Caledonia',
-    #          'Sydney, Australia']
+
     baltic = ['Petropavlovsk, Russia', 'Bergen, Norway', 'Flam, Norway', 'Geiranger, Norway', 'Alesund, Norway',
               'Stavanger, Norway', 'Skjolden, Norway', 'Stockholm, Sweden', 'Helsinki, Finland',
               'St. Petersburg, Russia', 'Tallinn, Estonia', 'Riga, Latvia', 'Warnemunde, Germany',
@@ -127,17 +87,6 @@ def match_by_meta(param):
     eastern_med = ['Athens (Piraeus), Greece', 'Katakolon, Greece', 'Dubrovnik, Croatia', 'Mykonos, Greece',
                    'Rhodes, Greece', 'Chania (Souda),Crete, Greece', 'Koper, Slovenia', 'Split, Croatia',
                    'Santorini, Greece', 'Zadar, Croatia', 'Corfu, Greece', 'Kotor, Montenegro']
-    # can_new_eng = ['Boston, Massachusetts', 'New York, New York', 'Newport, Rhode Island', 'Bar Harbor, Maine']
-    # east_carib = ["St. John's, Antigua", 'Tortola, B.V.I', 'Bridgetown, Barbados', 'Roseau, Dominica', 'Punta Cana, Dominican Rep', "St. George's, Grenada", 'Labadee, Hispaniola',
-    #               'San Juan, Puerto Rico',
-    #               'Basseterre, St. Kitts', 'Castries, St. Lucia', 'Philipsburg, St. Maarten', 'Charlotte Amalie, St. Thomas', 'Kingstown, St. Vincent',
-    #               'St. Croix, U.S.V.I.',
-    #               'Fort De France']
-    # west_carib = ['Belize City, Belize', 'Puerto Limon, Costa Rica', 'George Town, Grand Cayman', 'Roatan, Honduras', 'Falmouth, Jamaica', 'Costa Maya, Mexico',
-    #               'Cozumel, Mexico']
-    # carib = ['Oranjestad, Aruba', 'Kralendijk, Bonaire', 'Cartagena', 'Willemstad, Curacao', 'Fort Lauderdale, Florida',
-    #          'Key West, Florida',
-    #          'Miami, Florida', 'New Orleans, Louisiana']
     west_med = ['Catania,Sicily,Italy', 'Ajaccio, Corsica', 'Alicante, Spain', 'Barcelona, Spain', 'Bilbao, Spain',
                 'Cadiz, Spain', 'Cannes, France', 'Cartagena, Spain', 'Florence / Pisa (Livorno),Italy',
                 'Fuerteventura, Canary', 'Funchal (Madeira), Portugal', 'Genoa, Italy', 'Gibraltar, United Kingdom',
@@ -147,13 +96,11 @@ def match_by_meta(param):
                 'Palma De Mallorca, Spain', 'Ponta Delgada, Azores', 'Portofino, Italy', 'Provence (Toulon), France',
                 'Ravenna, Italy', 'Sete, France', 'St. Peter Port, Channel Isl', 'Tenerife, Canary Islands',
                 'Valencia, Spain', 'Valletta, Malta', 'Venice, Italy', 'Vigo, Spain']
-    # nn = ['Boston, Massachusetts', 'New York, New York', 'Newport, Rhode Island', 'Bar Harbor, Maine']
     europe = ['Rome (Civitavecchia), Italy', 'Le Havre (Paris), France', 'Akureyri, Iceland',
               'Belfast, Northern Ireland', 'Cherbourg, France', 'Cork (Cobh), Ireland', 'Dover, England',
               'Dublin, Ireland', 'Edinburgh, Scotland', 'Greenock (Glasgow), Scotland', 'Inverness/Loch Ness, Scotland',
               'Lerwick/Shetland, Scotland', 'Liverpool, England',
               'Waterford (Dunmore E.), Ireland']
-    # bahamas = ['Cococay, Bahamas', 'Nassau, Bahamas', 'Grand Bahama Island']
 
     ports_visited = param
 
@@ -241,7 +188,7 @@ def get_destination(dc):
     elif dc == 'ALCAN':
         return ['A', 'Alaska']
     elif dc == 'PACIF':
-        return ['A', 'Alaska']
+        return ['PA', 'PACIF']
     elif dc == 'TPACI':
         return ['I', 'Transpacific']
     elif dc == 'HAWAI':
@@ -459,6 +406,19 @@ def parse_data(cruise):
                 if 'Oranjestad, Aruba' in ports:
                     dest_code = "C"
                     dest_name = 'East Carib'
+            is_mexican = False
+            if dest_name == "PACIF" and vessel_name == "Infinity":
+                for p in ports:
+                    if 'Ensenada' in p:
+                        is_mexican = True
+                        break
+            if is_mexican:
+                dest_code = "M"
+                dest_name = "Mexico"
+            else:
+                if dest_name == "PACIF" and vessel_name == "Infinity":
+                    dest_name = "Alaska"
+                    dest_code = "A"
             temp = [dest_code, dest_name, vessel_id, vessel_name, cruise_id, cruise_line_name,
                     package_id,
                     brochure_name, number_of_nights, sail_date, return_date,
