@@ -183,7 +183,7 @@ def get_destination(dc):
         return ['E', 'Europe']
     elif dc == 'T.ATL':
         return ['E', 'Europe']
-    elif dc == 'FAR.E':
+    elif dc == 'FAR.E' or dc == "DUIND":
         return ['O', 'Exotics']
     elif dc == 'ALCAN':
         return ['A', 'Alaska']
@@ -264,6 +264,7 @@ def split_australia(ports):
 
 
 def split_carib(ports):
+    cu = ['Santiago de Cuba', 'Cienfuegos', 'Havana']
     wc = ['Costa Maya, Mexico', 'Cozumel, Mexico', 'Falmouth, Jamaica', 'George Town, Grand Cayman',
           'Ocho Rios, Jamaica']
 
@@ -282,12 +283,17 @@ def split_carib(ports):
         else:
             ports_list.append(ports[i])
     result = []
+    iscu = False
     isbm = False
     isec = False
     iswc = False
-    for element in bm:
+    for element in cu:
         if element in ports_list:
-            isbm = True
+            iscu = True
+    if not iscu:
+        for element in bm:
+            if element in ports_list:
+                isbm = True
     if not isbm:
         for element in ec:
             if element in ports_list:
@@ -296,7 +302,10 @@ def split_carib(ports):
         for element in wc:
             if element in ports_list:
                 iswc = True
-    if isbm:
+    if iscu:
+        result.append("Cuba")
+        result.append("C")
+    elif isbm:
         result.append("Bermuda")
         result.append("BM")
         return result
@@ -371,6 +380,7 @@ def parse_data(cruise):
             else:
                 suite_bucket_price = 'N/A'
             destination = get_destination(code)
+            print(code)
             dest_code = destination[0]
             dest_name = destination[1]
             if dest_code == 'E':
