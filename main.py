@@ -1,4 +1,5 @@
 import datetime
+import math
 import os
 
 import requests
@@ -10,29 +11,35 @@ headers = {
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0",
     "Accept": "application/json, text/plain, */*",
     "Accept-Language": "en-US,en;q=0.5",
-    "Connection": "keep-alive"
+    "Connection": "keep-alive",
+    "X-currency-code": "USD",
+    "X-request-id": "7d3a9258ef1641:82f359fa14b5958d",
+    "X-country-code": "BGR",
+    "Refer": "https://www.celebritycruises.com/spa/",
+    "Cookie": "celebrityWR=newsite; akaas_Prod_Celeb=2147483647~rv=69~id=ed4b99cbb23e8eb93c64506e8b8fd553; mbox=session#73d490d9e4a14340b9b1cd976eb1a1ef#1500142958|PC#73d490d9e4a14340b9b1cd976eb1a1ef.26_25#1563385898; AMCV_981337045329610C0A490D44%40AdobeOrg=283337926%7CMCMID%7C57376148977644089083001278996633580261%7CMCAAMLH-1500745854%7C6%7CMCAAMB-1500745854%7CNRX38WO0n5BH8Th-nqAG_A%7CMCAID%7CNONE; utag_main=v_id:015d475feb5400adbdaa7d09885000044003700900bd0$_sn:1$_ss:0$_st:1500142897854$ses_id:1500141054805%3Bexp-session$_pn:3%3Bexp-session$_prevpage:home%3Bexp-1500144691581$vapi_domain:celebritycruises.com; __zlcmid=hWgb56wg46706B; timeStamp=1500141062149; anonyToken=eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDAxNDEwOTM0MDksInRva2VuSWQiOiJkOWU2OTkxYi02M2Q5LTRmMjAtOGE0Zi04MjgwMzI5MTVhN2QifQ.-pa4tz3fvcwfILiS2KHHI7rn_6DkP7cMVUIz7o1xwcveopFei7tyu8HzWPRv1tGh; sessionID=1500141061477; sessionAgencyId=; authToken=eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDAxNDEwOTM0MDksInRva2VuSWQiOiJkOWU2OTkxYi02M2Q5LTRmMjAtOGE0Zi04MjgwMzI5MTVhN2QifQ.-pa4tz3fvcwfILiS2KHHI7rn_6DkP7cMVUIz7o1xwcveopFei7tyu8HzWPRv1tGh; timerAuth=1500141093568; s_getNewRepeat=1500141097250-New; gpv_pn=home; s_ppvl=home%2C19%2C13%2C729%2C1920%2C501%2C1920%2C1080%2C1%2CP; s_ppv=home%2C19%2C19%2C729%2C1920%2C501%2C1920%2C1080%2C1%2CP; s_cc=true; _ga=GA1.2.2000261071.1500141064; _gid=GA1.2.1893632878.1500141064; _gat_GA_USA_Traffic_NEWSITE=1; _gat_Whole_Site_For_Search=1; __qca=P0-1747121582-1500141063987; _gat_tealium_0=1; rr_rcs=eF4FwbkRgDAQA8DEEb1oRsInDjqgDT8JARlQP7tlub_nmtTKhEwqxKPGbmgDVN5xsg_lrEQ0G7EOIyMbup3WdOtVP2nHETc; mf_052a099e-1e93-47a8-854c-b8b99f949c57=-1; s_sq=celebritycruiseprod%3D%2526c.%2526a.%2526activitymap.%2526page%253Dhome%2526link%253DFIND%252520CRUISE%2526region%253Ditinerary-search-anchor%2526pageIDType%253D1%2526.activitymap%2526.a%2526.c%2526pid%253Dhome%2526pidt%253D1%2526oid%253DFIND%252520CRUISE%2526oidt%253D3%2526ot%253DSUBMIT; _uetsid=_uetad156ce5; lang=EN; locale=/int; office=IBR; currencyCode=USD; wuc=BGR; sailings-filter1=duration=2,3,4,5",
+    "Authorization": 'token eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDAxNDEwOTM0MDksInRva2VuSWQiOiJkOWU2OTkxYi02M2Q5LTRmMjAtOGE0Zi04MjgwMzI5MTVhN2QifQ.-pa4tz3fvcwfILiS2KHHI7rn_6DkP7cMVUIz7o1xwcveopFei7tyu8HzWPRv1tGh',
 }
 session.headers.update(headers)
-url = "http://www.celebritycruises.com/cruise-search/searchResults?&dest=ANY&isWidget=false&sortBy=1&selectedInput" \
-      "=&cruiseType=CO&cruisesOnly=Y&accessCabin=&includeAdjascentPorts=Y&state=&captain_id=&couponCodes=&isSenior" \
-      "=&isMilitary=&isFireandPolice=&sailStartDate=ANY&sailEndDate=ANY&port=ANY&duration=ANY&port=ANY&ship=ANY" \
-      "&startRow=0&_=1481022158300 "
+url = "https://www.celebritycruises.com/prd/cruises/?&office=IBR&bookingType=FIT&includeFacets=false&cruiseType=CO&includeResults=true&count=5&offset=0&groupBy=PACKAGE&sortBy=PRICE&sortOrder=ASCENDING"
 page = session.get(url)
 cruises = page.json()
-start_row = 0
-counter = round(int(cruises["totalPackages"]) / 10)
+start_row = 1
+total_count = cruises['hits']
+pages_count = int(math.ceil(total_count / 5))
 all_cruises = []
-all_itineraries = int(cruises["totalPackages"])
-current = 0
-
-
-def make_request(rw):
-    url_to_call = "http://www.celebritycruises.com/cruise-search/searchResults?&dest=ANY&isWidget=false&sortBy=7" \
-                  "&selectedInput=&cruiseType=CO&cruisesOnly=Y&accessCabin=&includeAdjascentPorts=Y&state=&captain_id" \
-                  "=&couponCodes=&isSenior=&isMilitary=&isFireandPolice=&sailStartDate=ANY&sailEndDate=ANY&port=ANY" \
-                  "&duration=ANY&port=ANY&ship=ANY&startRow=" + str(rw) + "&_=1484662960933 "
-    pages = session.get(url_to_call)
-    return pages.json()
+itineraries = []
+offset = 0
+all_ports = []
+while pages_count > 0:
+    print("Downloading page", start_row)
+    url = "https://www.celebritycruises.com/prd/cruises/?&office=IBR&bookingType=FIT&includeFacets=false&cruiseType=CO&includeResults=true&count=5&offset=" + str(
+        offset) + "&groupBy=PACKAGE&sortBy=PRICE&sortOrder=ASCENDING"
+    result_page = session.get(url).json()
+    for p in result_page['packages']:
+        itineraries.append(p)
+    start_row += 1
+    pages_count -= 1
+    offset += 5
 
 
 def convert_date(unformated):
@@ -76,7 +83,6 @@ def calculate_days(date, duration):
 
 
 def match_by_meta(param):
-
     baltic = ['Petropavlovsk, Russia', 'Bergen, Norway', 'Flam, Norway', 'Geiranger, Norway', 'Alesund, Norway',
               'Stavanger, Norway', 'Skjolden, Norway', 'Stockholm, Sweden', 'Helsinki, Finland',
               'St. Petersburg, Russia', 'Tallinn, Estonia', 'Riga, Latvia', 'Warnemunde, Germany',
@@ -593,12 +599,113 @@ def write_file_to_excell(data_array):
     pass
 
 
-while counter > 0:
-    cruises = make_request(start_row)
-    start_row += 10
-    counter -= 1
-    parse_data(cruises)
-
+for i in itineraries:
+    number_of_days = i['duration']
+    brochure_name = i['name']
+    package_id = i['packageId']
+    vessel_name = i['ship']['shortName'].title()
+    vessel_id = get_vessel_id(vessel_name)
+    cruise_line_name = "Celebrity Cruises"
+    cruise_id = "3"
+    if not i['justACruise']:
+        continue
+    destination = i['destinationCode']
+    dest = get_destination(destination)
+    destination_code = dest[0]
+    destination_name = dest[1]
+    ports = []
+    days = set()
+    for itin in i['itineraries']:
+        ports.append(itin['port']['name'].title())
+        days.add(itin['dayNumber'])
+    if 'International Dateline' in ports:
+        if len(days) != len(ports):
+            number_of_days -= 1
+        else:
+            number_of_days += 1
+    for s in i['sailings']:
+        inside = 'N/A'
+        outside = 'N/A'
+        balcony = 'N/A'
+        deluxe = 'N/A'
+        suite = 'N/A'
+        sail_date = convert_date(s['sailDate'])
+        return_date = calculate_days(sail_date, number_of_days)
+        for p in s['categoryPrices']:
+            if p['name'] == 'interior':
+                price = p['price']
+                if price == "Sold Out" or price is None or price == '':
+                    inside = 'N/A'
+                else:
+                    inside = price
+            elif p['name'] == 'outside':
+                price = p['price']
+                if price == "Sold Out" or price is None or price == '':
+                    outside = 'N/A'
+                else:
+                    outside = price
+            elif p['name'] == 'balcony':
+                price = p['price']
+                if price == "Sold Out" or price is None or price == '':
+                    balcony = 'N/A'
+                else:
+                    balcony = price
+            elif p['name'] == 'deluxe':
+                price = p['price']
+                if price == "Sold Out" or price is None or price == '':
+                    suite = 'N/A'
+                else:
+                    suite = price
+        if destination_code == 'E':
+            dest = match_by_meta(ports)
+            destination_code = dest[1]
+            destination_name = dest[0]
+        if "Caribbean" in brochure_name:
+            if "Western" in brochure_name or "West" in brochure_name:
+                destination_code = 'C'
+                destination_name = "West Carib"
+            if "Eastern" in brochure_name:
+                destination_code = 'C'
+                destination_name = "East Carib"
+        if destination_code == 'I':
+            if "Japan" in brochure_name:
+                destination_code = "O"
+                destination_name = 'Exotics'
+        if destination_name == 'Australia/New Zealand':
+            dest = split_australia(ports)
+            destination_code = dest[1]
+            destination_name = dest[0]
+        if destination_code == 'S':
+            if 'Panama Canal, Panama' in ports:
+                destination_code = 'T'
+                destination_name = "Panama Canal"
+        if destination_code == "C" and destination_name == 'Carib':
+            dest = split_carib(ports)
+            destination_code = dest[1]
+            destination_name = dest[0]
+            if 'Oranjestad, Aruba' in ports:
+                destination_code = "C"
+                destination_name = 'East Carib'
+        is_mexican = False
+        if destination_name == "PACIF" and vessel_name == "Infinity":
+            for p in ports:
+                if 'Ensenada' in p:
+                    is_mexican = True
+                    break
+        if is_mexican:
+            destination_code = "MX"
+            destination_name = "Mexico"
+        else:
+            if destination_name == "PACIF" and vessel_name == "Infinity":
+                destination_name = "Alaska"
+                destination_code = "A"
+        temp = [destination_code, destination_name, vessel_id, vessel_name, cruise_id, cruise_line_name,
+                package_id,
+                brochure_name, number_of_days, sail_date, return_date,
+                inside, outside, balcony, suite]
+        print(temp)
+        temp2 = [temp]
+        all_cruises.append(temp2)
 write_file_to_excell(all_cruises)
 f = open("ports.txt", 'w')
 for row in list(unique):
